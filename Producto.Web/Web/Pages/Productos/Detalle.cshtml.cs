@@ -1,4 +1,4 @@
-using Abstracciones.Interfaces.Reglas;
+﻿using Abstracciones.Interfaces.Reglas;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
@@ -16,17 +16,39 @@ namespace Web.Pages.Productos
             _configuration = configuration;
         }
 
-        public async Task OnGet(Guid? id)
+        public async Task<IActionResult> OnGet(Guid? id)
         {
+            if (id == null || id == Guid.Empty)
+            {
+                return NotFound();
+            }
+
             string endpoint = _configuration.ObtenerMetodo("APIEnpoints", "ObtenerProductoPorId");
+
             var cliente = new HttpClient();
-            var solicitud = new HttpRequestMessage(HttpMethod.Get, string.Format(endpoint, id));
-            var respuesta = await cliente.SendAsync(solicitud);
-            respuesta.EnsureSuccessStatusCode();
+
+            // 🔥 ESTA ES LA LÍNEA CLAVE
+            cliente.BaseAddress = new Uri(_configuration.ObtenerValor("APIEnpoints", "UrlBase"));
+
+            var url = string.Format(endpoint, id);
+
+            var respuesta = await cliente.GetAsync(url);
+
+            if (!respuesta.IsSuccessStatusCode)
+            {
+                return NotFound();
+            }
+
             var resultado = await respuesta.Content.ReadAsStringAsync();
-            var opciones = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+            var opciones = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
 
             producto = JsonSerializer.Deserialize<ProductoResponse>(resultado, opciones);
+
+            return Page();
         }
     }
 }
