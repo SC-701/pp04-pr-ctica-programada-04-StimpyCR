@@ -1,4 +1,5 @@
 ﻿using Abstracciones.Interfaces.Reglas;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
@@ -6,6 +7,7 @@ using static Abstracciones.Modelos.ProductoBase;
 
 namespace Web.Pages.Productos
 {
+    [Authorize]
     public class DetalleModel : PageModel
     {
         private readonly IConfiguracion _configuration;
@@ -25,7 +27,7 @@ namespace Web.Pages.Productos
 
             string endpoint = _configuration.ObtenerMetodo("APIEnpoints", "ObtenerProductoPorId");
 
-            var cliente = new HttpClient();
+            var cliente = ObtenerClienteConToken();
 
             // 🔥 ESTA ES LA LÍNEA CLAVE
             cliente.BaseAddress = new Uri(_configuration.ObtenerValor("APIEnpoints", "UrlBase"));
@@ -49,6 +51,17 @@ namespace Web.Pages.Productos
             producto = JsonSerializer.Deserialize<ProductoResponse>(resultado, opciones);
 
             return Page();
+        }
+        private HttpClient ObtenerClienteConToken()
+        {
+            var tokenClaim = HttpContext.User.Claims
+                .FirstOrDefault(c => c.Type == "AccessToken");
+            var cliente = new HttpClient();
+            if (tokenClaim != null)
+                cliente.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue(
+                        "Bearer", tokenClaim.Value);
+            return cliente;
         }
     }
 }

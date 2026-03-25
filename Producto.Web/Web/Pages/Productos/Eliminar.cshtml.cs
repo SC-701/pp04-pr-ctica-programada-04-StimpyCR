@@ -4,9 +4,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using static Abstracciones.Modelos.ProductoBase;
 using Abstracciones.Interfaces.Reglas;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Productos
 {
+    [Authorize]
     public class EliminarModel : PageModel
     {
         private readonly IConfiguracion _configuration;
@@ -67,7 +69,7 @@ namespace Web.Pages.Productos
 
             string endpoint = _configuration.ObtenerMetodo("APIEnpoints", "EliminarProducto");
 
-            var cliente = new HttpClient();
+            var cliente = ObtenerClienteConToken();
 
             // 🔥 MISMA SOLUCIÓN AQUÍ
             cliente.BaseAddress = new Uri(_configuration.ObtenerValor("APIEnpoints", "UrlBase"));
@@ -82,6 +84,17 @@ namespace Web.Pages.Productos
             }
 
             return RedirectToPage("./Index");
+        }
+        private HttpClient ObtenerClienteConToken()
+        {
+            var tokenClaim = HttpContext.User.Claims
+                .FirstOrDefault(c => c.Type == "AccessToken");
+            var cliente = new HttpClient();
+            if (tokenClaim != null)
+                cliente.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue(
+                        "Bearer", tokenClaim.Value);
+            return cliente;
         }
     }
 }
