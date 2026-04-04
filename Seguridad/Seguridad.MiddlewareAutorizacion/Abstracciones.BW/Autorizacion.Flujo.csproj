@@ -8,7 +8,7 @@
     <PackageId>Autorizacion.Flujo.StimpyCR</PackageId>
     <Authors>StimpyCR</Authors>
     <Description>Lógica de negocio del paquete de autorización. Agrega perfiles del usuario como claims al ClaimsPrincipal</Description>
-    <RepositoryUrl>https://github.com/SC701</RepositoryUrl>
+    <RepositoryUrl>https://github.com/SC701.index.json</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 

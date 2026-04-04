@@ -8,7 +8,7 @@
     <PackageId>Autorizacion.DA.StimpyCR</PackageId>
     <Authors>Drojascode</Authors>
     <Description>Capa de acceso a datos del paquete de autorización. Consulta perfiles de usuario en la BD de seguridad con Dapper</Description>
-    <RepositoryUrl>https://github.com/SC701</RepositoryUrl>
+    <RepositoryUrl>https://github.com/SC701.index.json</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 

@@ -8,7 +8,7 @@
     <PackageId>Autorizacion.Middleware.StimpyCR</PackageId>
     <Authors>Drojascode</Authors>
     <Description>Middleware ASP.NET Core 8 que agrega claims de rol desde la BD de seguridad al HttpContext.User</Description>
-    <RepositoryUrl>https://github.com/SC701</RepositoryUrl>
+    <RepositoryUrl>https://github.com/SC701.index.json</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 

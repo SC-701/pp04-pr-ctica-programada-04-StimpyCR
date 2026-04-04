@@ -8,7 +8,7 @@
     <PackageId>Autorizacion.Abstracciones.StimpyCR</PackageId>
     <Authors>StimpyCR</Authors>
     <Description>Interfaces y modelos compartidos del paquete de autorización por claims para ASP.NET Core 8</Description>
-    <RepositoryUrl>https://github.com/SC701</RepositoryUrl>
+    <RepositoryUrl>https://github.com/SC701.index.json</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
