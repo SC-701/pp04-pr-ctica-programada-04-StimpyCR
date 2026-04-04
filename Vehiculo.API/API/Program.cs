@@ -8,10 +8,10 @@ using Reglas;
 using Abstracciones.Interfaces.Servicios;
 using Servicios;
 using Abstracciones.Modelos;             
-using Microsoft.AspNetCore.Authentication.JwtBearer;  // ★
-using Microsoft.IdentityModel.Tokens;                 // ★
-using System.Text;                                    // ★
-using Autorizacion.Middleware;                        // ★
+using Microsoft.AspNetCore.Authentication.JwtBearer;  
+using Microsoft.IdentityModel.Tokens;                 
+using System.Text;                                    
+using Autorizacion.Middleware;                       
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +52,14 @@ builder.Services.AddScoped<IRegistroReglas, RegistroReglas>();
 builder.Services.AddScoped<IRevisionReglas, RevisionReglas>();
 builder.Services.AddScoped<IConfiguracion, Configuracion>();
 
+// ★ Registrar servicios del paquete de Autorización
+builder.Services.AddTransient<Autorizacion.Abstracciones.Flujo.IAutorizacionFlujo,
+                               Autorizacion.Flujo.AutorizacionFlujo>();
+builder.Services.AddTransient<Autorizacion.Abstracciones.DA.ISeguridadDA,
+                               Autorizacion.DA.SeguridadDA>();
+builder.Services.AddTransient<Autorizacion.Abstracciones.DA.IRepositorioDapper,
+                               Autorizacion.DA.Repositorios.RepositorioDapper>();
+
 var politicaAcceso = "Politica de acceso";
 
 
@@ -78,6 +86,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors(politicaAcceso);
 
+app.AutorizacionClaims();
 app.UseAuthorization();
 
 app.MapControllers();
