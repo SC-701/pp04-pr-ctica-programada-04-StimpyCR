@@ -4,7 +4,6 @@ using Abstracciones.Modelos;
 using Abstracciones.Modelos.Seguridad;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Reglas;
@@ -17,7 +16,7 @@ namespace Web.Pages.Cuenta
     public class LoginModel : PageModel
     {
         [BindProperty]
-        public Abstracciones.Modelos.Seguridad.LoginRequest loginInfo { get; set; } = default!;
+        public LoginRequest loginInfo { get; set; } = default!;
         [BindProperty]
         public Token token { get; set; } = default!;
         private IConfiguracion _configuracion;

@@ -1,11 +1,10 @@
-// Registro.cshtml.cs
-
+﻿// Registro.cshtml.cs
 using Abstracciones.Interfaces.Reglas;
+using Abstracciones.Modelos.Seguridad;
 using Abstracciones.Seguridad;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Reglas;
-
 
 namespace Web.Pages.Cuenta
 {

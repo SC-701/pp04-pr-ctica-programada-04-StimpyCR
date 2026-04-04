@@ -48,7 +48,7 @@ namespace Reglas
                 jwtToken.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value));
             claims.Add(new Claim(ClaimTypes.Email,
                 jwtToken.Claims.First(c => c.Type == ClaimTypes.Email).Value));
-            claims.Add(new Claim("Token", accessToken));
+            claims.Add(new Claim("AccessToken", accessToken));
             return claims;
         }
     }
