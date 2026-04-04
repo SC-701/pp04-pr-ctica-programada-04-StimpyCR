@@ -1,4 +1,4 @@
-using Abstracciones.Interfaces.DA;
+﻿using Abstracciones.Interfaces.DA;
 using Abstracciones.Interfaces.Flujo;
 using Flujo;
 using DA;
@@ -7,10 +7,31 @@ using Abstracciones.Interfaces.Reglas;
 using Reglas;
 using Abstracciones.Interfaces.Servicios;
 using Servicios;
+using Abstracciones.Modelos;             
+using Microsoft.AspNetCore.Authentication.JwtBearer;  // ★
+using Microsoft.IdentityModel.Tokens;                 // ★
+using System.Text;                                    // ★
+using Autorizacion.Middleware;                        // ★
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ★ Leer configuración JWT y registrar autenticación
+var tokenConfig = builder.Configuration.GetSection("Token").Get<TokenConfiguracion>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = tokenConfig.Issuer,
+            ValidAudience = tokenConfig.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                                           Encoding.UTF8.GetBytes(tokenConfig.key))
+        };
+    });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

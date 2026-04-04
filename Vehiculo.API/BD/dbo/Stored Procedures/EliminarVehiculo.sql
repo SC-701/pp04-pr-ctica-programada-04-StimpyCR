@@ -1,11 +1,7 @@
-﻿-- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
--- =============================================
-CREATE PROCEDURE EliminarVehiculo
+﻿CREATE PROCEDURE EliminarVehiculo
 	-- Add the parameters for the stored procedure here
-	@Id uniqueidentifier
+	@id uniqueidentifier
+
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -13,10 +9,10 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	BEGIN TRANSACTION
-		DELETE
-		FROM            Vehiculo
-		WHERE        (Id = @Id)
-		SELECT @Id
-	COMMIT TRANSACTION
+	begin transaction
+delete
+FROM            Vehiculo 
+WHERE        (id = @id)
+select @id
+commit transaction
 END

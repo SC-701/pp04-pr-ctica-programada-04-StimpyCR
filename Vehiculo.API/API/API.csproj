@@ -16,6 +16,10 @@
     <ProjectReference Include="..\Flujo\Flujo.csproj" />
     <ProjectReference Include="..\Reglas\Reglas.csproj" />
     <ProjectReference Include="..\Servicios\Servicios.csproj" />
+	  <PackageReference Include="Autorizacion.Abstracciones.StimpyCR" Version="1.0.0" />
+	  <PackageReference Include="Autorizacion.DA.StimpyCR" Version="1.0.0" />
+	  <PackageReference Include="Autorizacion.Flujo.StimpyCR" Version="1.0.0" />
+	  <PackageReference Include="Autorizacion.Middleware.StimpyCR" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

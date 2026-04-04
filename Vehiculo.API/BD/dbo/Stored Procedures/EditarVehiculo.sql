@@ -1,35 +1,30 @@
-﻿-- =============================================
--- Author:		Author,,Name>
--- Create date: Create Date,,>
--- Description:	Description,,>
--- =============================================
-CREATE PROCEDURE EditarVehiculo
-	-- Add the parameters for the stored procedure here
-	@Id AS uniqueidentifier
-	,@IdModelo AS uniqueidentifier
-	,@Placa AS varchar(max)
-	,@Color AS varchar(max)
-	,@Anio AS int
-	,@Precio AS decimal(18,0)
-	,@CorreoPropietario AS varchar(max)
-	,@TelefonoPropietario AS varchar(max)
+﻿CREATE PROCEDURE EditarVehiculo
+    @id uniqueidentifier,
+    @idModelo uniqueidentifier,
+    @placa varchar(max),
+    @color varchar(max),
+    @anio int,
+    @precio decimal(18,2),
+    @correoPropietario varchar(max),
+    @telefonoPropietario varchar(max)
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
+    SET NOCOUNT ON;
 
-    -- Insert statements for procedure here
-	BEGIN TRANSACTION
-		UPDATE [dbo].[Vehiculo]
-	   SET [IdModelo] = @IdModelo
-		  ,[Placa] = @Placa
-		  ,[Color] = @Color
-		  ,[Anio] = @Anio
-		  ,[Precio] = @Precio
-		  ,[CorreoPropietario] = @CorreoPropietario
-		  ,[TelefonoPropietario] = @TelefonoPropietario
-		WHERE Id=@Id
-		SELECT @Id
-	COMMIT TRANSACTION
+    -- Validar modelo exista (simple)
+    IF NOT EXISTS (SELECT 1 FROM modelos WHERE id = @idModelo)
+        RETURN;
+
+    UPDATE Vehiculo
+    SET
+        idModelo = @idModelo,
+        placa = @placa,
+        color = @color,
+        anio = @anio,
+        precio = @precio,
+        correoPropietario = @correoPropietario,
+        telefonoPropietario = @telefonoPropietario
+    WHERE id = @id;
+
+    SELECT @id AS idVehiculo;
 END

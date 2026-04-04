@@ -1,11 +1,7 @@
-﻿-- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
--- =============================================
-CREATE PROCEDURE ObtenerVehiculo
+﻿CREATE PROCEDURE ObtenerVehiculo
 	-- Add the parameters for the stored procedure here
-	@Id uniqueidentifier
+	@id uniqueidentifier
+
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -13,9 +9,9 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT        Vehiculo.Id, Vehiculo.IdModelo, Vehiculo.Placa, Vehiculo.Color, Vehiculo.Anio, Vehiculo.Precio, Vehiculo.CorreoPropietario, Vehiculo.TelefonoPropietario, Modelos.Nombre AS Modelo, Marcas.Nombre AS Marca
-	FROM            Vehiculo INNER JOIN
-							 Modelos ON Vehiculo.IdModelo = Modelos.Id INNER JOIN
-							 Marcas ON Modelos.IdMarca = Marcas.Id
-	WHERE        (Vehiculo.Id = @Id)
+SELECT        Vehiculo.id, Vehiculo.idModelo, Vehiculo.placa, Vehiculo.color, Vehiculo.anio, Vehiculo.precio, Vehiculo.correoPropietario, Vehiculo.telefonoPropietario, modelos.nombre AS Modelo, marcas.nombre AS Marca
+FROM            Vehiculo INNER JOIN
+                         modelos ON Vehiculo.idModelo = modelos.id INNER JOIN
+                         marcas ON modelos.idMarca = marcas.id
+WHERE        (Vehiculo.id = @id)
 END
