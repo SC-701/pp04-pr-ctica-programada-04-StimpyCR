@@ -6,7 +6,6 @@ using Autorizacion.DA.Repositorios;
 using Autorizacion.Flujo;
 using Autorizacion.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Configuration;
 using Reglas;
 
 var builder = WebApplication.CreateBuilder(args);

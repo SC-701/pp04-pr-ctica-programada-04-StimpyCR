@@ -1,4 +1,5 @@
-﻿using Abstracciones.Interfaces.Reglas;
+﻿
+using Abstracciones.Interfaces.Reglas;
 using Abstracciones.Modelos;
 using Microsoft.Extensions.Configuration;
 
